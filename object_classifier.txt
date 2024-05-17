@@ -1,0 +1,29 @@
+This program is a GUI application built using PyQt5 framework. It consists of several classes and widgets to create a user interface for a seed classifier application. Here is a breakdown of the classes and widgets used in the program:
+
+VideoWidget: This is a custom widget derived from QWidget that displays a video stream. It contains a QLabel widget to display the video frames and a grid layout to arrange the video label and other square labels.
+
+ChartWindow: This is a custom window derived from QMainWindow that displays a chart. It contains a FigureCanvas widget to show the chart.
+
+ImageWindow: This is a custom window derived from QMainWindow that displays an image. It contains a QLabel widget to show the image.
+
+MainWindow: This is the main window of the application derived from QWidget. It contains the main layout and various widgets to display the video stream, rectangles with tables and pie charts, and buttons for controlling the stream.
+
+Here are some methods of the MainWindow:
+
+start_stream(self): This method is called to start the video stream. It opens the video capture device (assuming the device index is 0), starts a timer with a 30-millisecond interval, updates some variables (self.xx and button states), and prepares the GUI for video streaming.
+
+stop_stream(self): This method is called to stop the video stream. It resets various variables, stops the timer, releases the video capture device, resets the GUI elements, clears the image filenames list, and updates the table widget and pie chart.
+
+show_full_size_image(self, label): This method is called when a square label is clicked to display the corresponding full-size image in a new window. It retrieves the filename of the image associated with the clicked label, creates a new ImageWindow object (assuming it is defined elsewhere), and shows the window.
+
+snap_picture(self): This method is called when the "Snap Picture" button is clicked to capture a frame from the video stream. It reads a frame from the video capture device, resizes it to a predefined resolution, saves the image to a file with a timestamp in the filename, updates the GUI with the captured image in a square label, increments the snap counter, and performs additional actions if the snap counter reaches 5.
+
+model_palay(self): This method is called after capturing 5 pictures to process and classify the images using a pre-trained model. It loads a pre-trained model (assuming it is saved as 'compile_rice_class_new03.model'), iterates over the captured image filenames, performs image processing steps (grayscale conversion, edge detection, contour grouping, etc.), extracts regions of interest (ROI), saves the ROIs as separate jpg files, loads the saved ROIs for classification, classifies the ROIs using the loaded model, updates the counts for different classes (germinated, abnormal, ungerminated), and updates the total count. The method also writes rectangles around the detected regions, adds captions to the rectangles based on the classification results, and saves the modified image with rectangles.
+
+The program utilizes various other PyQt5 widgets such as QHBoxLayout, QVBoxLayout, QPushButton, QMenuBar, QAction, QTableWidget, QTableWidgetItem, QGridLayout, etc. It also imports external libraries such as cv2 (OpenCV), numpy, datetime, and matplotlib for video processing, data manipulation, and chart plotting.
+
+The MainWindow class handles the main logic of the application. It connects button clicks and mouse events to corresponding functions, such as starting and stopping the video stream, taking snapshots, opening projects, creating new windows, and showing settings and about information.
+
+The program also uses QImage and QPixmap classes to convert and display video frames and images within the GUI.
+
+Overall, this program provides a graphical user interface for a seed classifier application, allowing users to view a video stream, capture snapshots, display tables and pie charts for seed classification results, and perform other actions through buttons and menus.
